@@ -13,7 +13,7 @@ SDL_Window* sdl_create_window(const char* title, int w, int h)
 bool sdl_init(void)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		LOG_ERROR("SDL_Init failed: %s", SDL_GetError());
+		LOG_ERROR("sdl: SDL_Init failed: %s", SDL_GetError());
 		return false;
 	}
 

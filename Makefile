@@ -5,8 +5,8 @@ INCLUDE = -Iinclude
 CFLAGS = -std=c99 -O2 -Wall -Wextra $(INCLUDE)
 LDFLAGS = $(DEPS)
 
-SRC = src/quark.c src/sdl.c
-OBJ = build/quark.o build/sdl.o
+SRC = src/quark.c src/sdl.c src/render.c src/engine.c
+OBJ = build/quark.o build/sdl.o build/render.o build/engine.o
 
 all: quark
 
