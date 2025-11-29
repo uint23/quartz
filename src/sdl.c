@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "quark.h"
+#include "quartz.h"
 #include "sdl.h"
 
 SDL_Window* sdl_create_window(const char* title, int w, int h)

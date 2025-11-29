@@ -5,23 +5,23 @@ INCLUDE = -Iinclude
 CFLAGS = -std=c99 -O2 -Wall -Wextra $(INCLUDE)
 LDFLAGS = $(DEPS)
 
-SRC = src/quark.c src/sdl.c src/render.c src/engine.c
-OBJ = build/quark.o build/sdl.o build/render.o build/engine.o
+SRC = src/quartz.c src/sdl.c src/render.c src/engine.c
+OBJ = build/quartz.o build/sdl.o build/render.o build/engine.o
 
-all: quark
+all: quartz
 
-quark: $(OBJ)
-	$(CC) -o quark $(OBJ) $(LDFLAGS)
+quartz: $(OBJ)
+	$(CC) -o quartz $(OBJ) $(LDFLAGS)
 
 build/%.o: src/%.c
 	mkdir -p build
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f quark $(OBJ)
+	rm -f quartz $(OBJ)
 
 run:
-	./quark
+	./quartz
 
 compile_flags:
 	rm -f compile_flags.txt

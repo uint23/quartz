@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include "engine.h"
-#include "quark.h"
+#include "quartz.h"
 
-static quark_tab_t tabs[MAX_TABS];
+static quartz_tab_t tabs[MAX_TABS];
 static int tab_count = 0;
 static int current_tab = -1;
 
@@ -68,7 +68,7 @@ void engine_tab_close(int id)
 		current_tab = tab_count - 1;
 }
 
-quark_tab_t* engine_tab_current(void)
+quartz_tab_t* engine_tab_current(void)
 {
 	for (int i = 0; i < tab_count; i++)
 		if (i == current_tab)
@@ -84,7 +84,7 @@ int engine_tab_new(const char* url)
 		return -1;
 	}
 
-	quark_tab_t* t = &tabs[tab_count];
+	quartz_tab_t* t = &tabs[tab_count];
 	t->url = SDL_strdup(url ? url : "about_blank");
 	t->title = SDL_strdup("new tab"); /* TODO: customise */
 	t->loading = true;

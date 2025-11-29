@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengles2.h>
 
-#include "quark.h"
+#include "quartz.h"
 #include "render.h"
 
 /* shader handles */

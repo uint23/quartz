@@ -12,7 +12,7 @@ typedef struct {
 	int           win_w;
 	int           win_h;
 	bool          running;
-} quark_t;
+} quartz_t;
 
 /* logging */
 #define ANSI_RESET     "\x1b[0m"

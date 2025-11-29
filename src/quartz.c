@@ -5,11 +5,11 @@
 #include <stdlib.h>
 
 #include "engine.h"
-#include "quark.h"
+#include "quartz.h"
 #include "render.h"
 #include "sdl.h"
 
-quark_t quark;
+quartz_t quartz;
 
 void init(void);
 void quit(void);
@@ -21,15 +21,15 @@ void quit(void)
 	engine_shutdown();
 	render_shutdown();
 	sdl_quit();
-	LOG_INFO("quark: quitting");
+	LOG_INFO("quartz: quitting");
 }
 
 void render_tmp(void)
 {
-	render_begin(quark.win_w, quark.win_h);
+	render_begin(quartz.win_w, quartz.win_h);
 
 	/* top bar */
-	render_rect(0, 0, quark.win_w, 32, 0.15f, 0.15f, 0.22f, 1.0f);
+	render_rect(0, 0, quartz.win_w, 32, 0.15f, 0.15f, 0.22f, 1.0f);
 
 	/* number of tabs changes color */
 	int n = engine_get_tab_count();
@@ -42,26 +42,26 @@ void render_tmp(void)
 	/* tab indicator */
 	render_rect(10, 8, 100, 16, intensity, (cur >= 0 ? 0.5f : 0.2f), 0.2f, 1.0f);
 
-	render_end(quark.win);
+	render_end(quartz.win);
 }
 
 void run(void)
 {
-	quark.running = true;
-	LOG_INFO("quark: starting");
+	quartz.running = true;
+	LOG_INFO("quartz: starting");
 
 	SDL_Event ev;
 
-	while (quark.running) {
+	while (quartz.running) {
 		/* TODO: add event handler + this is just test until WebKit implemented */
 		while (SDL_PollEvent(&ev)) {
 			if (ev.type == SDL_QUIT)
-				quark.running = false;
+				quartz.running = false;
 
 			if (ev.type == SDL_WINDOWEVENT) {
 				if (ev.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
-					quark.win_w = ev.window.data1;
-					quark.win_h = ev.window.data2;
+					quartz.win_w = ev.window.data1;
+					quartz.win_h = ev.window.data2;
 				}
 			}
 
@@ -73,16 +73,16 @@ void run(void)
 				if ((mods & KMOD_CTRL) && key == SDLK_t) {
 					int id = engine_tab_new("about:blank");
 					if (id >= 0) {
-						LOG_INFO("quark: new tab %d", id);
+						LOG_INFO("quartz: new tab %d", id);
 						engine_tab_switch(id);
 					}
 				}
 
 				/* C-w: close current tab */
 				if ((mods & KMOD_CTRL) && key == SDLK_w) {
-					quark_tab_t* cur = engine_tab_current();
+					quartz_tab_t* cur = engine_tab_current();
 					if (cur) {
-						LOG_INFO("quark: closing current tab");
+						LOG_INFO("quartz: closing current tab");
 						engine_tab_close(engine_get_current_index());
 					}
 				}
@@ -108,20 +108,20 @@ void run(void)
 void init(void)
 {
 	sdl_init();
-	quark.win = sdl_create_window("quark", 800, 600);
-	if (!quark.win) {
-		LOG_ERROR("sdl: failed to create quark window");
+	quartz.win = sdl_create_window("quartz", 800, 600);
+	if (!quartz.win) {
+		LOG_ERROR("sdl: failed to create quartz window");
 		exit(EXIT_FAILURE);
 	}
 	else {
 		LOG_PASS("sdl: created SDL window");
 	}
-	quark.win_w = 800;
-	quark.win_h = 600;
+	quartz.win_w = 800;
+	quartz.win_h = 600;
 
 	/* init systems */
-	quark.gl = SDL_GL_CreateContext(quark.win);
-	if (!quark.gl) {
+	quartz.gl = SDL_GL_CreateContext(quartz.win);
+	if (!quartz.gl) {
 		LOG_ERROR("opengl: failed to create GL context");
 		exit(EXIT_FAILURE);
 	}
