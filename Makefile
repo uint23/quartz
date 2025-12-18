@@ -4,13 +4,16 @@ CXXFLAGS = -std=c++23 -Os -Wall -Wextra
 PKG_CONFIG = pkg-config
 
 # CHANGE THIS: ladybird source tree
-LADYBIRD = $(HOME)/clones/ladybird-test
-#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+LADYBIRD = $(HOME)/clones/ladybird
+#          ^^^^^^^^^^^^^^^^^^^^^^^
 BUILD = $(LADYBIRD)/Build/release
 INCS = -I$(LADYBIRD) -I$(LADYBIRD)/Services -I$(LADYBIRD)/Libraries \
        -I$(BUILD)/Lagom -I$(BUILD)/Lagom/Services -I$(BUILD)/Lagom/Libraries \
        -I$(BUILD)/vcpkg_installed/x64-linux-dynamic/include \
        $$($(PKG_CONFIG) --cflags sdl3 2>/dev/null)
+
+# for patch
+ROOT = $(PWD)
 
 # ladybird libs
 LAGOM_LIBS = -L$(BUILD)/lib \
@@ -80,12 +83,12 @@ run: install
 
 patch:
 	cd $(LADYBIRD) && \
-	git apply $$PWD/build_patches/cmake.patch && \
-	git apply $$PWD/build_patches/lagom_options.patch && \
-	git apply $$PWD/build_patches/vcpkg.patch && \
-	git apply $$PWD/build_patches/ui_cmake.patch && \
+	git apply $(ROOT)/build_patches/CMakeLists.txt.patch && \
+	git apply $(ROOT)/build_patches/Meta_CMake_lagom_options.cmake.patch && \
+	git apply $(ROOT)/build_patches/vcpkg.json.patch && \
+	git apply $(ROOT)/build_patches/UI_CMakeLists.txt.patch && \
 	rm -f $(LADYBIRD)/UI/quartz && \
-	ln -sf $$PWD/quartz $(LADYBIRD)/UI/quartz
+	ln -sf $(ROOT)/quartz $(LADYBIRD)/UI/quartz
 
 ladybird:
 	cd $(LADYBIRD) && \

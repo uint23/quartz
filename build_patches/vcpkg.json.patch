@@ -1,0 +1,37 @@
+diff --git a/vcpkg.json b/vcpkg.json
+index d32fb707..ea114950 100644
+--- a/vcpkg.json
++++ b/vcpkg.json
+@@ -161,6 +161,32 @@
+     },
+     {
+       "name": "sdl3",
++      "platform": "linux",
++      "default-features": false,
++      "features": [
++        "x11",
++        "wayland"
++      ]
++    },
++    {
++      "name": "sdl3",
++      "platform": "freebsd | openbsd | netbsd | illumos",
++      "default-features": false,
++      "features": [
++        "x11"
++      ]
++    },
++    {
++      "name": "sdl3",
++      "platform": "darwin",
++      "default-features": false,
++      "features": [
++        "cocoa"
++      ]
++    },
++    {
++      "name": "sdl3",
++      "platform": "!(linux | freebsd | openbsd | netbsd | illumos | darwin)",
+       "default-features": false
+     },
+     "simdutf",
